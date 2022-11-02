@@ -1,0 +1,37 @@
+.preview {
+  position: relative;
+  flex: 1;
+
+  background-color: #fff;
+  box-shadow: -2px -10px 20px -5px rgba(0, 0, 0, 0.1);
+
+  padding: 20px;
+}
+
+.wrapper {
+  position: sticky;
+  top: 50px;
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.code {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.date {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.body {
+  font-size: 14px;
+}

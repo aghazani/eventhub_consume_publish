@@ -1,0 +1,50 @@
+import { EventHubProducerClient } from '@azure/event-hubs'
+import { useCallback, useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
+import connectionAtom from '../state/connectionAtom'
+
+const useProducerClient = () => {
+  const [canPublish, setCanPublish] = useState(false)
+  const [producerClient, setProducerClient] = useState<EventHubProducerClient>()
+
+  const { config } = useRecoilValue(connectionAtom)
+
+  const publishTest = useCallback(async () => {
+    if (!producerClient) return false
+
+    const eventDataBatch = await producerClient.createBatch()
+
+    eventDataBatch.tryAdd({
+      body: {
+        test: {
+          test: 'test',
+          test2: [{ test: 'test', test2: 'test' }],
+        },
+      },
+    })
+
+    await producerClient.sendBatch(eventDataBatch)
+
+    return true
+  }, [producerClient])
+
+  useEffect(() => {
+    setCanPublish(false)
+
+    const pc = new EventHubProducerClient(
+      config.connectionString,
+      config.eventHubName
+    )
+
+    setProducerClient(pc)
+    setCanPublish(true)
+
+    return () => {
+      pc.close()
+    }
+  }, [config.connectionString, config.eventHubName])
+
+  return { publishTest, canPublish }
+}
+
+export default useProducerClient

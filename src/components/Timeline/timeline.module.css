@@ -1,0 +1,49 @@
+.timeline {
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 40px 0 40px 40px;
+  flex-basis: 50%;
+}
+
+.separator {
+  width: 100px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.separator::before {
+  content: '';
+  display: block;
+  height: 50px;
+  width: 2px;
+  border-radius: 5px;
+  background-color: #ddd;
+  animation: popIn 1s forwards;
+}
+
+@keyframes popIn {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 50px;
+  }
+}
+
+.empty {
+  margin-left: 40px;
+
+  font-size: 20px;
+  font-weight: 100;
+  animation: waiting 1s infinite;
+}
+
+@keyframes waiting {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}

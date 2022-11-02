@@ -1,0 +1,107 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes popInItem {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.item__new {
+  animation: popInItem 0.5s forwards ease-in-out;
+}
+
+.dot {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.dot span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: rgb(155, 155, 155);
+}
+
+.dot span:hover {
+  background: rgb(124, 192, 255) !important;
+}
+
+.item__new .dot span {
+  background-color: rgb(63, 161, 253);
+  width: 50px;
+  height: 50px;
+  animation: fadeIn 1s 1s forwards, blinkDot 1s 1s infinite,
+    fadeDot 1s 5s forwards;
+}
+
+@keyframes blinkDot {
+  0% {
+    box-shadow: 0 0 0 0px rgb(124, 192, 255);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgb(124, 192, 255);
+  }
+}
+
+@keyframes fadeInDot {
+  0% {
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    opacity: 1;
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@keyframes fadeDot {
+  0% {
+  }
+  100% {
+    background: rgb(155, 155, 155);
+    width: 20px;
+    height: 20px;
+    box-shadow: 0 0 0 10px rgba(143, 187, 252, 0);
+  }
+}
+
+.about {
+  flex: 1;
+}
+
+.date {
+  display: flex;
+  justify-content: left;
+  flex-basis: 150px;
+}
+.date p {
+  font-size: 12px;
+  /* background: #eee; */
+  margin: 0;
+  border-radius: 5px;
+  font-weight: 100;
+  cursor: pointer;
+}
+
+.code {
+  flex-basis: 150px;
+  font-weight: bold;
+}
+
+.code span {
+  cursor: pointer;
+}

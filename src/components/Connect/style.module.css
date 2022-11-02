@@ -1,0 +1,50 @@
+.wrapper {
+  padding: 0 20px 20px 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form input {
+  font-size: 12px;
+  padding: 10px 5px;
+  border: 1px solid #ccc;
+}
+
+.form button {
+  margin-right: auto;
+}
+
+.wrapper button {
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.wrapper button:hover {
+  background: #000;
+  color: #fff;
+  border-color: transparent;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.wrapper button.test {
+  background-color: rgb(223, 250, 223);
+  border-color: rgb(28, 129, 28);
+  color: #000;
+}
+
+.wrapper button.test:hover {
+  background-color: rgb(121, 245, 121);
+}

@@ -1,0 +1,1 @@
+export const { CONSUMER_GROUP, CONNECTION_STRING, EVENT_HUB_NAME } = process.env

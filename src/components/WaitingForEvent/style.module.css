@@ -1,0 +1,48 @@
+.container {
+  padding: 0px 40px 20px;
+  font-size: 20px;
+}
+
+.connected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+.connected::before {
+  content: '';
+  display: block;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 100%;
+
+  background-color: rgb(22, 194, 59);
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgb(255, 34, 34);
+  font-weight: bold;
+}
+.error::before {
+  content: '';
+  display: block;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 100%;
+
+  background-color: rgb(255, 34, 34);
+}
+
+.error .message {
+  position: absolute;
+  font-size: 12px;
+  font-weight: 400;
+  color: #555;
+}
