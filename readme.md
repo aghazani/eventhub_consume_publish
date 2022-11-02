@@ -13,3 +13,7 @@ EVENT_HUB_NAME = ...
 ```
 
 ### and replace the ... by the correct value
+
+# NOTE
+
+This is just a demo app, nothing here is optimized :)
