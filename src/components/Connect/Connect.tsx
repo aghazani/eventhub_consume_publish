@@ -48,7 +48,7 @@ const Connect = () => {
           <div className={style.form}>
             <label>Connect to an EventHub :</label>
             <input
-              placeholder="EvenHub name"
+              placeholder="EventHub name"
               value={state.config.eventHubName}
               onChange={e => onChangeConfigProp('eventHubName', e.target.value)}
             />

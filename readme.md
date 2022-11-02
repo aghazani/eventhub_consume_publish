@@ -20,6 +20,14 @@ EVENT_HUB_NAME = ...
 
 ### and replace the ... by the correct value
 
+# Start a DEV server
+
+`yarn dev`
+
+# Build
+
+`yarn build`
+
 # NOTE
 
 This is just a demo app, nothing here is optimized :)
