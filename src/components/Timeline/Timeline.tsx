@@ -2,7 +2,7 @@ import React from 'react'
 import { useRecoilValue } from 'recoil'
 import useSubscribeEventhub from '../../hooks/useSubscribeEventhub'
 import connectionStateAtom from '../../state/connectionAtom'
-import eventsSortedSelector from '../../state/EventsSortedSelector'
+import eventsSortedSelector from '../../state/eventsSortedSelector'
 import EventItem from './EventItem'
 
 import style from './timeline.module.css'
