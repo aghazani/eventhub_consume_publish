@@ -29,18 +29,21 @@ const useProducerClient = () => {
   }, [producerClient])
 
   useEffect(() => {
-    setCanPublish(false)
+    try {
+      setCanPublish(false)
+      const pc = new EventHubProducerClient(
+        config.connectionString,
+        config.eventHubName
+      )
 
-    const pc = new EventHubProducerClient(
-      config.connectionString,
-      config.eventHubName
-    )
+      setProducerClient(pc)
+      setCanPublish(true)
 
-    setProducerClient(pc)
-    setCanPublish(true)
-
-    return () => {
-      pc.close()
+      return () => {
+        pc.close()
+      }
+    } catch (e) {
+      setCanPublish(false)
     }
   }, [config.connectionString, config.eventHubName])
 
