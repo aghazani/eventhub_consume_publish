@@ -13,6 +13,7 @@
   top: 50px;
   max-height: 80vh;
   overflow: auto;
+  height: 100%;
 }
 
 .head {
