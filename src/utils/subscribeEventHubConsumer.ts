@@ -1,5 +1,4 @@
 import {
-  earliestEventPosition,
   EventHubConsumerClient,
   ProcessErrorHandler,
   ProcessEventsHandler,
@@ -22,6 +21,8 @@ const subscribeEventHubConsumer = async (
     configConnection.eventHubName
   )
 
+  const lastDayDate = new Date().setDate(new Date().getDate() - 1)
+
   const partitionIds = await client.getPartitionIds()
 
   const subscription = client.subscribe(
@@ -31,7 +32,9 @@ const subscribeEventHubConsumer = async (
       processError,
     },
     {
-      startPosition: earliestEventPosition,
+      startPosition: {
+        enqueuedOn: lastDayDate,
+      },
     }
   )
 
