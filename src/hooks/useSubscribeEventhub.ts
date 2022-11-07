@@ -25,9 +25,20 @@ const useSubscribeEventhub = () => {
     [setEvents]
   )
 
-  const processError: ProcessErrorHandler = useCallback(async error => {
-    // console.log(error)
-  }, [])
+  const processError: ProcessErrorHandler = useCallback(
+    async error => {
+      setConnection(current => ({
+        ...current,
+        state: {
+          isConnected: false,
+          isConnecting: false,
+          isError: true,
+          error: error.message,
+        },
+      }))
+    },
+    [setConnection]
+  )
 
   useEffect(() => {
     let closeConnection: () => void
