@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 import useSubscribeEventhub from '../../hooks/useSubscribeEventhub'
@@ -17,7 +18,13 @@ const Timeline = () => {
       {events.map((event, index) => (
         <React.Fragment key={event.sequenceNumber}>
           <EventItem key={event.sequenceNumber} event={event} />
-          {events[index + 1] ? <div className={style.separator} /> : null}
+          {events[index + 1] ? (
+            <div
+              className={classNames(style.separator, {
+                [style.separator__big]: index === 0,
+              })}
+            />
+          ) : null}
         </React.Fragment>
       ))}
 

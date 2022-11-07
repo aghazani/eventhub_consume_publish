@@ -1,6 +1,6 @@
 import {
+  earliestEventPosition,
   EventHubConsumerClient,
-  latestEventPosition,
   ProcessErrorHandler,
   ProcessEventsHandler,
 } from '@azure/event-hubs'
@@ -31,7 +31,7 @@ const subscribeEventHubConsumer = async (
       processError,
     },
     {
-      startPosition: latestEventPosition,
+      startPosition: earliestEventPosition,
     }
   )
 
