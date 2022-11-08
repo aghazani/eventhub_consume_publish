@@ -92,6 +92,7 @@ const Connect = () => {
             <div className={style.chain}>
               <input
                 placeholder="Property to show as title"
+                value={filterState.eventTitle}
                 onChange={e => setFilter('eventTitle', e.target.value)}
               />
               <label>
