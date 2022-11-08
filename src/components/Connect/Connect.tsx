@@ -1,11 +1,13 @@
 import React, { useCallback } from 'react'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import connectionAtom from '../../state/connectionAtom'
+import filterAtom from '../../state/filterAtom'
 import Publish from './Publish'
 
 import style from './style.module.css'
 
 const Connect = () => {
+  const setFilterState = useSetRecoilState(filterAtom)
   const [state, setState] = useRecoilState(connectionAtom)
 
   const onChangeConfigProp = useCallback(
@@ -32,6 +34,15 @@ const Connect = () => {
       }))
     },
     [setState]
+  )
+
+  const setFilter = useCallback(
+    (value: string) =>
+      setFilterState(current => ({
+        ...current,
+        eventTitle: value,
+      })),
+    [setFilterState]
   )
 
   return (
@@ -66,6 +77,22 @@ const Connect = () => {
                 onChangeConfigProp('connectionString', e.target.value)
               }
             />
+            <div className={style.chain}>
+              <input
+                placeholder="Property to show as title"
+                onChange={e => setFilter(e.target.value)}
+              />
+              <label>
+                Exemple :<br />
+                <strong> body.header.type+" : "+body.codeDivisionId</strong>
+                <br />
+                <strong> body.header.type</strong>
+                <br />
+                <strong> sequenceNumber</strong>
+                <br /> if the chain is not compatible, it falls back to
+                sequenceNumber
+              </label>
+            </div>
             <button type="button" onClick={() => setConfig(true)}>
               Connect
             </button>

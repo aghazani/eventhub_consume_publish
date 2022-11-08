@@ -6,14 +6,17 @@ import { ReceivedEventData } from '@azure/event-hubs'
 
 import style from './eventItem.css'
 import DateFormat from '../../DateFormat'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import eventAtom from '../../../state/eventAtom'
+import constructString from '../../../utils/constructString'
+import filterAtom from '../../../state/filterAtom'
 
 type TEventItemProps = {
   event: ReceivedEventData
 }
 
 const EventItem = ({ event }: TEventItemProps) => {
+  const filterState = useRecoilValue(filterAtom)
   const setEvent = useSetRecoilState(eventAtom)
   const isNew = differenceInSeconds(event.enqueuedTimeUtc, new Date()) > -10
 
@@ -33,7 +36,9 @@ const EventItem = ({ event }: TEventItemProps) => {
           </p>
         </div>
         <div className={style.code}>
-          <span onClick={onClick}>{event.sequenceNumber}</span>
+          <span onClick={onClick}>
+            {constructString(filterState.eventTitle, event)}
+          </span>
         </div>
       </div>
     </div>

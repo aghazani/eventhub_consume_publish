@@ -21,7 +21,12 @@ const Preview = () => {
           </div>
         </div>
         <div className={style.body}>
-          <ReactJson src={event.body} />
+          <ReactJson
+            src={event}
+            sortKeys={false}
+            displayDataTypes={false}
+            enableClipboard={false}
+          />
         </div>
       </div>
     </div>

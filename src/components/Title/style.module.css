@@ -16,3 +16,7 @@
   text-decoration: none;
   color: #000;
 }
+.link span {
+  margin-left: 5px;
+  font-size: 12px;
+}
