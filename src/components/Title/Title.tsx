@@ -16,8 +16,7 @@ const Title = () => {
         target="_blank"
         rel="noreferrer"
       >
-        Github
-        <span>v{p.version}</span>
+        Github - <span>v{p.version}</span>
       </a>
     </div>
   )

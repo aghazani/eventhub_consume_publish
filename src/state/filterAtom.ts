@@ -1,11 +1,9 @@
 import { atom } from 'recoil'
+import { getFilterCache } from '../utils/filterCache'
 
 const filterAtom = atom({
   key: 'filterAtom',
-  default: {
-    eventTitle:
-      'body.header.type+" : "+body.header.partitionKey+" ["+body.header.source+"]"',
-  },
+  default: getFilterCache(),
 })
 
 export default filterAtom

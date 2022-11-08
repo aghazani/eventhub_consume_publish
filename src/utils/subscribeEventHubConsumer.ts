@@ -1,5 +1,6 @@
 import {
   EventHubConsumerClient,
+  latestEventPosition,
   ProcessErrorHandler,
   ProcessEventsHandler,
 } from '@azure/event-hubs'
@@ -13,7 +14,8 @@ type TConfigConnection = {
 const subscribeEventHubConsumer = async (
   configConnection: TConfigConnection,
   processEvents: ProcessEventsHandler,
-  processError: ProcessErrorHandler
+  processError: ProcessErrorHandler,
+  startPosition: string
 ): Promise<() => void> => {
   const client = new EventHubConsumerClient(
     configConnection.consumerGroup,
@@ -21,9 +23,19 @@ const subscribeEventHubConsumer = async (
     configConnection.eventHubName
   )
 
-  const todayDate = new Date().setHours(0, 0, 0)
-
   const partitionIds = await client.getPartitionIds()
+  let t
+  switch (startPosition) {
+    case 'hour':
+      t = new Date().setHours(new Date().getHours() - 1)
+      break
+    case 'today':
+      t = new Date().setHours(0, 0, 0)
+      break
+    default:
+      t = 0
+      break
+  }
 
   const subscription = client.subscribe(
     partitionIds[0],
@@ -32,9 +44,12 @@ const subscribeEventHubConsumer = async (
       processError,
     },
     {
-      startPosition: {
-        enqueuedOn: todayDate,
-      },
+      startPosition:
+        t === 0
+          ? latestEventPosition
+          : {
+              enqueuedOn: t,
+            },
     }
   )
 

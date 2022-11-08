@@ -9,8 +9,10 @@ import subscribeEventHubConsumer from '../utils/subscribeEventHubConsumer'
 import eventsAtom from '../state/eventsAtom'
 import connectionAtom from '../state/connectionAtom'
 import eventAtom from '../state/eventAtom'
+import filterAtom from '../state/filterAtom'
 
 const useSubscribeEventhub = () => {
+  const filterState = useRecoilValue(filterAtom)
   const setEvents = useSetRecoilState(eventsAtom)
   const setEvent = useSetRecoilState(eventAtom)
   const setConnection = useSetRecoilState(connectionAtom)
@@ -57,7 +59,12 @@ const useSubscribeEventhub = () => {
       },
     }))
 
-    subscribeEventHubConsumer(connectionConfig, processEvent, processError)
+    subscribeEventHubConsumer(
+      connectionConfig,
+      processEvent,
+      processError,
+      filterState.history
+    )
       .then(closeConnection_ => {
         closeConnection = closeConnection_
         setConnection(current => ({
@@ -87,6 +94,7 @@ const useSubscribeEventhub = () => {
     }
   }, [
     connectionConfig,
+    filterState.history,
     processError,
     processEvent,
     setConnection,
