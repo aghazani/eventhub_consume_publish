@@ -24,16 +24,17 @@ const subscribeEventHubConsumer = async (
   )
 
   const partitionIds = await client.getPartitionIds()
-  let t
+  const date = new Date()
+  let latest = false
   switch (startPosition) {
     case 'hour':
-      t = new Date().setHours(new Date().getHours() - 1)
+      date.setHours(new Date().getHours() - 1)
       break
     case 'today':
-      t = new Date().setHours(0, 0, 0)
+      date.setHours(0, 0, 0)
       break
     default:
-      t = 0
+      latest = true
       break
   }
 
@@ -44,12 +45,11 @@ const subscribeEventHubConsumer = async (
       processError,
     },
     {
-      startPosition:
-        t === 0
-          ? latestEventPosition
-          : {
-              enqueuedOn: t,
-            },
+      startPosition: latest
+        ? latestEventPosition
+        : {
+            enqueuedOn: date,
+          },
     }
   )
 
