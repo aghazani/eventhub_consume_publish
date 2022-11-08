@@ -1,13 +1,15 @@
 import React, { useCallback } from 'react'
-import { useRecoilState, useSetRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 import connectionAtom from '../../state/connectionAtom'
 import filterAtom from '../../state/filterAtom'
+import { saveConfigCache } from '../../utils/configCache'
+import { saveFilterCache } from '../../utils/filterCache'
 import Publish from './Publish'
 
 import style from './style.module.css'
 
 const Connect = () => {
-  const setFilterState = useSetRecoilState(filterAtom)
+  const [filterState, setFilterState] = useRecoilState(filterAtom)
   const [state, setState] = useRecoilState(connectionAtom)
 
   const onChangeConfigProp = useCallback(
@@ -15,13 +17,19 @@ const Connect = () => {
       prop: 'eventHubName' | 'consumerGroup' | 'connectionString',
       value: string
     ) => {
-      setState(current => ({
-        ...current,
-        config: {
-          ...current.config,
-          [prop]: value,
-        },
-      }))
+      setState(current => {
+        const o = {
+          ...current,
+          config: {
+            ...current.config,
+            [prop]: value,
+          },
+        }
+
+        saveConfigCache(o.config)
+
+        return o
+      })
     },
     [setState]
   )
@@ -37,11 +45,15 @@ const Connect = () => {
   )
 
   const setFilter = useCallback(
-    (value: string) =>
-      setFilterState(current => ({
-        ...current,
-        eventTitle: value,
-      })),
+    (key: string, value: string) =>
+      setFilterState(current => {
+        const a = {
+          ...current,
+          [key]: value,
+        }
+        saveFilterCache(a)
+        return a
+      }),
     [setFilterState]
   )
 
@@ -80,11 +92,15 @@ const Connect = () => {
             <div className={style.chain}>
               <input
                 placeholder="Property to show as title"
-                onChange={e => setFilter(e.target.value)}
+                value={filterState.eventTitle}
+                onChange={e => setFilter('eventTitle', e.target.value)}
               />
               <label>
                 Exemple :<br />
-                <strong> body.header.type+" : "+body.codeDivisionId</strong>
+                <strong>
+                  body.header.type+" : "+body.header.partitionKey+"
+                  ["+body.header.source+"]"
+                </strong>
                 <br />
                 <strong> body.header.type</strong>
                 <br />
@@ -92,6 +108,17 @@ const Connect = () => {
                 <br /> if the chain is not compatible, it falls back to
                 sequenceNumber
               </label>
+            </div>
+            <div>
+              <label>Events history : </label>
+              <select
+                onChange={e => setFilter('history', e.target.value)}
+                value={filterState.history}
+              >
+                <option value="new">Only New</option>
+                <option value="hour">Last Hour</option>
+                <option value="today">Today</option>
+              </select>
             </div>
             <button type="button" onClick={() => setConfig(true)}>
               Connect

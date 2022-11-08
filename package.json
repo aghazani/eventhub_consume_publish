@@ -1,6 +1,7 @@
 {
-  "name": "eventhubconsumer",
-  "version": "0.2.0",
+  "name": "eventhub_consume_publish",
+  "author": "AZGSKULL - abdelaziz.gh@gmail.com",
+  "version": "0.4.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +9,6 @@
     "dev": "webpack serve --open"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

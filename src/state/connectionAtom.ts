@@ -1,5 +1,5 @@
 import { atom } from 'recoil'
-import * as config from '../utils/config'
+import { getConfigCache } from '../utils/configCache'
 
 type TConnectionAtom = {
   isSetted: boolean
@@ -16,15 +16,13 @@ type TConnectionAtom = {
   }
 }
 
+const config = getConfigCache()
+
 const connectionAtom = atom<TConnectionAtom>({
   key: 'connectionStateAtom',
   default: {
     isSetted: false,
-    config: {
-      consumerGroup: config.CONSUMER_GROUP,
-      connectionString: config.CONNECTION_STRING,
-      eventHubName: config.EVENT_HUB_NAME,
-    },
+    config,
     state: {
       isConnected: false,
       isConnecting: true,
