@@ -48,3 +48,15 @@
 .wrapper button.test:hover {
   background-color: rgb(121, 245, 121);
 }
+
+.chain {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 12px;
+}
+
+.chain input {
+  flex: 0 1 400px;
+}

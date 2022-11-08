@@ -16,10 +16,7 @@ const useProducerClient = () => {
 
     eventDataBatch.tryAdd({
       body: {
-        test: {
-          test: 'test',
-          test2: [{ test: 'test', test2: 'test' }],
-        },
+        test: 'Test',
       },
     })
 

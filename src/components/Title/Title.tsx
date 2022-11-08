@@ -2,6 +2,8 @@ import React from 'react'
 
 import style from './style.module.css'
 
+import p from '../../../package.json'
+
 const Title = () => {
   return (
     <div className={style.title}>
@@ -14,7 +16,8 @@ const Title = () => {
         target="_blank"
         rel="noreferrer"
       >
-        Github repo
+        Github
+        <span>v{p.version}</span>
       </a>
     </div>
   )
