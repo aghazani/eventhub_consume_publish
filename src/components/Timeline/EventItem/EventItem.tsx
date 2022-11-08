@@ -37,6 +37,8 @@ const EventItem = ({ event }: TEventItemProps) => {
         </div>
         <div className={style.code}>
           <span onClick={onClick}>
+            {event.sequenceNumber}
+            <span> - </span>
             {constructString(filterState.eventTitle, event)}
           </span>
         </div>

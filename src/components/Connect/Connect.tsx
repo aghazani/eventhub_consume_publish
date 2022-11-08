@@ -84,7 +84,10 @@ const Connect = () => {
               />
               <label>
                 Exemple :<br />
-                <strong> body.header.type+" : "+body.codeDivisionId</strong>
+                <strong>
+                  body.header.type+" : "+body.header.partitionKey+"
+                  ["+body.header.source+"]"
+                </strong>
                 <br />
                 <strong> body.header.type</strong>
                 <br />

@@ -3,7 +3,8 @@ import { atom } from 'recoil'
 const filterAtom = atom({
   key: 'filterAtom',
   default: {
-    eventTitle: 'sequenceNumber',
+    eventTitle:
+      'body.header.type+" : "+body.header.partitionKey+" ["+body.header.source+"]"',
   },
 })
 
