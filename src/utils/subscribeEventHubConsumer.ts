@@ -21,7 +21,7 @@ const subscribeEventHubConsumer = async (
     configConnection.eventHubName
   )
 
-  const lastDayDate = new Date().setDate(new Date().getDate() - 1)
+  const todayDate = new Date().setHours(0, 0, 0)
 
   const partitionIds = await client.getPartitionIds()
 
@@ -33,7 +33,7 @@ const subscribeEventHubConsumer = async (
     },
     {
       startPosition: {
-        enqueuedOn: lastDayDate,
+        enqueuedOn: todayDate,
       },
     }
   )
