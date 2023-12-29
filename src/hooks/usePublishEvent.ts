@@ -9,21 +9,30 @@ const useProducerClient = () => {
 
   const { config } = useRecoilValue(connectionAtom)
 
-  const publishTest = useCallback(async () => {
-    if (!producerClient) return false
+  const publishTest = useCallback(
+    async (body: string) => {
+      if (!producerClient) return false
 
-    const eventDataBatch = await producerClient.createBatch()
+      let json = {}
 
-    eventDataBatch.tryAdd({
-      body: {
-        test: 'Test',
-      },
-    })
+      try {
+        json = JSON.parse(body)
+      } catch (e) {
+        json = body
+      }
 
-    await producerClient.sendBatch(eventDataBatch)
+      const eventDataBatch = await producerClient.createBatch()
 
-    return true
-  }, [producerClient])
+      eventDataBatch.tryAdd({
+        body: json,
+      })
+
+      await producerClient.sendBatch(eventDataBatch)
+
+      return true
+    },
+    [producerClient]
+  )
 
   useEffect(() => {
     try {

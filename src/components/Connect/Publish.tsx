@@ -5,6 +5,8 @@ import style from './publish.module.css'
 
 const Publish = () => {
   const [publishing, setPublishing] = useState(false)
+  const [body, setBody] = useState('{"att":"value"}')
+  const [showPopup, setShowPopup] = useState(false)
 
   const { publishTest, canPublish } = useProducerClient()
 
@@ -14,19 +16,35 @@ const Publish = () => {
 
   const doPublish = async () => {
     setPublishing(true)
-    await publishTest()
+    await publishTest(body)
+    setShowPopup(false)
     setPublishing(false)
   }
 
   return (
-    <button
-      type="button"
-      className={style.test}
-      onClick={doPublish}
-      disabled={publishing}
-    >
-      Publish test {publishing && '...'}
-    </button>
+    <div className={style.container}>
+      <button onClick={() => setShowPopup(s => !s)}>Publish a test</button>
+      {showPopup && (
+        <div className={style.popup}>
+          <textarea
+            value={body}
+            onChange={e => setBody(e.target.value)}
+          ></textarea>
+          <div className={style.actions}>
+            <button
+              type="button"
+              className={style.publish}
+              onClick={doPublish}
+              disabled={publishing}
+            >
+              Publish {publishing && '...'}
+            </button>
+
+            <button onClick={() => setShowPopup(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 
