@@ -4,7 +4,7 @@ Live demo https://eventhub-js.vercel.app/
 
 #
 
-# Install the app
+# Install the App
 
 `yarn` or `npm install`
 
